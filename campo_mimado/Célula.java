@@ -1,33 +1,46 @@
 package campo_mimado;
 
 public class Célula {
- private int numeroDaCelula;
- private char mina, escondidinho, vazio, bandeira ;
- private boolean abrirCelula;
- 
- public Célula() {
-	 this.mina = 'B';
-	 this.vazio = '*';
-	 this.bandeira = 'p';
-	 this.escondidinho = '0';
- }
- 
- public void explodir() {
-	 if(this.escondidinho == this.mina)
-		 System.exit(0);
- }
- 
- public boolean expansao() {
-	 boolean expandir;
-	 if(this.abrirCelula == true && this.escondidinho == this.vazio)
-		 expandir = true;
-	 else expandir = false; 
-		return expandir;
- }
+ private boolean mina, escondidinho, vazio, bandeira, numeros;
 
- public void colocarBandeira() {
-	 if(this.abrirCelula == false)
-		 this.escondidinho = this.bandeira;
- }
+public boolean isNumeros() {
+	return numeros;
+}
+
+public void setNumeros(boolean numeros) {
+	this.numeros = numeros;
+}
+
+public boolean isMina() {
+	return mina;
+}
+
+public void setMina(boolean mina) {
+	this.mina = mina;
+}
+
+public boolean isEscondidinho() {
+	return escondidinho;
+}
+
+public void setEscondidinho(boolean escondidinho) {
+	this.escondidinho = escondidinho;
+}
+
+public boolean isVazio() {
+	return vazio;
+}
+
+public void setVazio(boolean vazio) {
+	this.vazio = vazio;
+}
+
+public boolean isBandeira() {
+	return bandeira;
+}
+
+public void setBandeira(boolean bandeira) {
+	this.bandeira = bandeira;
+}
 }
 
