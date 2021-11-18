@@ -1,17 +1,12 @@
 package campo_mimado;
-import java.util.Random;
+import java.util.*;
 import java.util.Scanner;
 
-public class Tabulerio extends Célula{
+public class Tabulerio extends Celula{
 
-	private int largura, comprimento, contagemTotalDeMinas, posicaoV;
-	private Célula[][] tabuleiro, tabalero;
-	private char posicaoH;
-	
-	
-	public void setTabuleiro(Célula[] tabuleiro) {
-		this.tabuleiro = tabuleiro;
-	}
+	private int largura, comprimento, contagemTotalDeMinas, posicaoV, posicaoH;
+	private Celula[][] tabuleiro;
+	private char[][] tabalero;
 	
 	public int dificuldade(char escolha) {
 		switch(escolha) {
@@ -36,20 +31,10 @@ public class Tabulerio extends Célula{
 		return largura;
 	}
 	
-	/*public boolean verificarArredores() {
-		if(tabuleiro[X+1][Y+1] == mina || tabuleiro[X+1][Y-1] == mina ||
-			tabuleiro[X+1][Y] == mina || tabuleiro[X][Y+1] == mina ||
-			tabuleiro[X][Y-1] == mina || tabuleiro[X-1][Y] == mina ||
-			tabuleiro[X-1][Y-1] == mina || tabuleiro[X-1][Y+1] == mina)
-			confirm = false;
-			else confirm = true;
-		return(confirm);
-	}*/
-	
-	public char escolherPosicaoHorizontal() {
+	public int escolherPosicaoHorizontal() {
 		Scanner leitura = new Scanner(System.in);
 		System.out.println("diga as coordenadas na horizontal:");
-		this.posicaoH = leitura.next().charAt(0);
+		this.posicaoH = leitura.nextInt();
 	return this.posicaoH;
 	}
 	
@@ -60,20 +45,25 @@ public class Tabulerio extends Célula{
 		return this.posicaoV;
 	}
 	
-	public void porNumero(Célula[] tabuleiro) {
+	public void porNumero() {
 		for(int i = 0; i < largura; i++) {
-			for(int j = 0; j < largura; j++) {
-			if (this.tabuleiro[i].setMina(isMina()) == true)
-				tabuleiro[i+1][j+1].setnumeros(isnumeros()) = true; tabuleiro[i+1][j-1].setnumeros(isnumeros()) = true;
-				tabuleiro[i+1][j].setnumeros(isnumeros()) = true; tabuleiro[i][j+1].setnumeros(isnumeros()) = true;
-				tabuleiro[i][j-1].setnumeros(isnumeros()) = true; tabuleiro[i-1][j].setnumeros(isnumeros()) = true;
-				tabuleiro[i-1][j+1].setnumeros(isnumeros()) = true; tabuleiro[i-1][j-1].setnumeros(isnumeros()) = true;
+			for(int j = 0; j < comprimento; j++) {
+			if (this.tabuleiro[i][j].isMina() == true)
+				this.tabuleiro[i+1][j+1].setNumeros(true); this.tabuleiro[i+1][j-1].setNumeros(true);
+				this.tabuleiro[i+1][j].setNumeros(true); this.tabuleiro[i][j+1].setNumeros(true);
+				this.tabuleiro[i][j-1].setNumeros(true); this.tabuleiro[i-1][j].setNumeros(true);
+				this.tabuleiro[i-1][j+1].setNumeros(true); this.tabuleiro[i-1][j-1].setNumeros(true);
 			}
 		}
 	}
+	public int escolherNumero() {
+		int numero = 0;
+		return numero;
+	}
 	
-	public void porBomba(Célula[] tabuleiro) {
-		Random aleatorio = new Random();
+	public void porBomba() {
+		/*Random aleatorio = new Random();
+		TreeSet meuNumero = new TreeSet ();
 		int Numerosaleatorios = 0;
 		int[] salvarnumero = new int[this.largura*this.comprimento];
 		int n = 0;
@@ -82,38 +72,48 @@ public class Tabulerio extends Célula{
 			Numerosaleatorios = aleatorio.nextInt(this.largura*this.comprimento);
 			for(i = 0; i < n; i++) {
 				if(salvarnumero[i] != Numerosaleatorios)
-					tabuleiro[Numerosaleatorios].setMina(isMina()) = true;
+					this.tabuleiro[Numerosaleatorios][Numerosaleatorios].setMina(true);
 				else {
-					tabuleiro[Numerosaleatorios].setMina(isMina()) = false;
+					this.tabuleiro[Numerosaleatorios][Numerosaleatorios].setMina(false);
 					n--;
 					break;
 				}
 			}
 			n++;
-		}
-	}
-	
-	public void montarTabuleiro() {
-		tabuleiro = new Célula[largura*comprimento];
-		for(int j = 0; j < largura*comprimento; j++) 
-			this.tabuleiro[j] = new Célula();
-		for(int i = 0; i < (largura*comprimento); i++) {
-				this.tabuleiro[i].setVazio(isVazio()) = true;
-			}
-		porBomba(this.tabuleiro);
+		}*/
+			this.tabuleiro[5][5].setMina(true);
+			
 		
 	}
 	
+	public void montarTabuleiro() {
+		this.tabuleiro = new Celula[largura][comprimento];
+		for(int j = 0; j < largura; j++) {
+			for(int k = 0; k < comprimento; k++)
+				this.tabuleiro[j][k] = new Celula();
+		}
+		for(int i = 0; i < largura; i++) {
+			for(int l = 0; l < comprimento; l++)
+				this.tabuleiro[i][l].setVazio(true);
+			}
+		porBomba();
+	}
+	
 	public void imprimirMatriz() {
-		char alfabeto;
-		montarTabuleiro(this.tabuleiro[]);
+		int n = 0;
+		int[] H = new int[comprimento];
+		int[] V = new int[largura];
+		montarTabuleiro();
+		this.tabalero = new char[largura][comprimento];
+		do {
+			V[n] = escolherPosicaoVertical();
+			H[n] = escolherPosicaoHorizontal();
 		for(int i = 0; i < largura; i++) {
 			for(int l = 0; l < comprimento; l++) {
 				if(i == 0 && l == 0) {
 					System.out.print("    ");
 				for(int k = 0; k < comprimento; k++ ) { 
-					alfabeto = (char)(65 + k);
-					System.out.print(alfabeto+" ");
+					System.out.print(k+" ");
 					}System.out.print("\n");
 				}
 				if(l == 0) {
@@ -121,13 +121,22 @@ public class Tabulerio extends Célula{
 						System.out.print(" ");
 					System.out.print(" "+i);
 					}
-				if(this.tabuleiro[].isMina() == true)
-					System.out.print(" M");
-				else if(this.tabuleiro[].isVazio() == true)
-					System.out.print(" *");
-				else System.out.print(" 0");
-			}
+				for(int j = 0; j <= n; j++) {
+				if(this.tabuleiro[V[j]][H[j]].isMina() == true && V[j] == i && l == H[j]) {
+					this.tabalero[i][l] = 'M';
+					break;
+				}
+				else if(this.tabuleiro[V[j]][H[j]].isVazio() == true && V[j] == i && l == H[j]) {
+					this.tabalero[i][l] = '*';
+					break;
+					}
+					else this.tabalero[i][l] = '0';
+				}
+				System.out.print(" "+this.tabalero[i][l]);
+				
+		}
 			System.out.print("\n");
-		}  
+		} n++;
+		} while(true);
 	} 
 }
